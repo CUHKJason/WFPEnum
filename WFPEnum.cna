@@ -1,0 +1,12 @@
+beacon_command_register("WFPEnum", "Simple implementation to enumerate WFP", "Example: WFPEnum");
+
+alias WFPEnum {
+    local('$barch $handle');
+    $barch  = barch($1);
+    $handle = openf(script_resource("WFPEnum. $+ $barch $+ .o"));
+    $data   = readb($handle, -1);
+    closef($handle);
+    btask($1, "Running...");
+
+    beacon_inline_execute($1, $data, "go", $null);
+}
